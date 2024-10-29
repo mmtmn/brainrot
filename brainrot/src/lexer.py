@@ -15,7 +15,6 @@ class BrainrotLexer:
         self.tokenize()
 
     def tokenize(self):
-        # Regular expression pattern for matching tokens
         pattern = r'(\b(?:' + '|'.join(re.escape(kw) for kw in self.keywords) + r')\b|"[^"]*"|\S+)'
         words = re.findall(pattern, self.code)
 
@@ -27,6 +26,8 @@ class BrainrotLexer:
                 self.tokens.append(('STRING', word[1:-1]))  # Remove surrounding quotes
             elif re.match(r'^\d+(\.\d+)?$', word):  # Integer or double
                 self.tokens.append(('NUMBER', float(word) if '.' in word else int(word)))
+            elif word in ('no cap', 'cap'):  # Condition operators
+                self.tokens.append(('OPERATOR', word))
             else:
                 self.tokens.append(('IDENTIFIER', word))
 

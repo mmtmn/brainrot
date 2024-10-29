@@ -54,10 +54,20 @@ class BrainrotParser:
     def parse_variable_declaration(self):
         self.position += 1  # Skip 'beta'
         var_name = self.tokens[self.position][1]
-        self.position += 2  # Skip variable name and '='
-        value = self.tokens[self.position][1]
+        self.position += 1  # Move to the data type
+
+        # Parse the data type (e.g., 'stack', 'vibe')
+        var_type = self.tokens[self.position][1]
         self.position += 1
-        return ('var_decl', var_name, value)
+
+        if self.tokens[self.position][1] == '=':
+            self.position += 1  # Skip '='
+            value = self.tokens[self.position]
+            self.position += 1
+            return ('var_decl', var_name, var_type, value)
+        else:
+            raise SyntaxError("Expected '=' in variable declaration")
+
 
     def parse_constant_declaration(self):
         self.position += 1  # Skip 'sigma'
@@ -69,14 +79,40 @@ class BrainrotParser:
 
     def parse_if_statement(self):
         self.position += 1  # Skip 'vibe check'
-        condition = self.tokens[self.position][1]
-        self.position += 1  # Skip condition
+        self.position += 1  # Skip '('
+        
+        # Parse the condition (e.g., 'age no cap 21')
+        left_operand = self.tokens[self.position][1]
+        self.position += 1  # Move to 'no cap' or 'cap'
+        
+        operator = self.tokens[self.position][1]
+        self.position += 1  # Move to the right operand
+        
+        right_operand = self.tokens[self.position][1]
+        self.position += 2  # Move past ')' to start of body
+
+        condition = (operator, left_operand, right_operand)
+
+        # Parse the body within braces '{...}' for the `if` statement
         self.position += 1  # Skip '{'
-        body = []
+        if_body = []
         while self.tokens[self.position][1] != '}':
-            body.append(self.parse_statement())
+            if_body.append(self.parse_statement())
         self.position += 1  # Skip '}'
-        return ('if', condition, body)
+
+        # Check for an optional `else` clause ('bro did not pass')
+        else_body = None
+        if self.position < len(self.tokens) and self.tokens[self.position][1] == 'bro did not pass':
+            self.position += 1  # Skip 'bro did not pass'
+            self.position += 1  # Skip '{'
+            else_body = []
+            while self.tokens[self.position][1] != '}':
+                else_body.append(self.parse_statement())
+            self.position += 1  # Skip '}'
+
+        return ('if', condition, if_body, else_body)
+
+
 
     def parse_while_loop(self):
         self.position += 1  # Skip 'bussin\''

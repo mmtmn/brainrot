@@ -9,33 +9,41 @@ class BrainrotInterpreter:
 
     def execute(self, node):
         if node[0] == 'var_decl':
-            self.env[node[1]] = node[2]
-        elif node[0] == 'const_decl':
-            self.env[node[1]] = node[2]
+            var_name = node[1]
+            var_type = node[2]
+            value = node[3][1]  # Extract the actual value from the token tuple
+
+            # Handle types (stack = int, vibe = bool, etc.)
+            if var_type == 'stack':
+                self.env[var_name] = int(value)
+            elif var_type == 'vibe':
+                self.env[var_name] = bool(value)
+            elif var_type == 'sauce':
+                self.env[var_name] = float(value)
+            elif var_type == 'quote':
+                self.env[var_name] = str(value)
+            else:
+                raise TypeError(f"Unknown type '{var_type}' for variable '{var_name}'")
+        
         elif node[0] == 'if':
-            condition = node[1]
+            condition, if_body, else_body = node[1], node[2], node[3]
             if self.evaluate(condition):
-                for stmt in node[2]:
+                for stmt in if_body:
                     self.execute(stmt)
-        elif node[0] == 'while':
-            condition = node[1]
-            while self.evaluate(condition):
-                for stmt in node[2]:
+            elif else_body:  # Execute `else` block if condition is false and else_body exists
+                for stmt in else_body:
                     self.execute(stmt)
         elif node[0] == 'flex':
             print(node[1])  # Print message
-        elif node[0] == 'function_def':
-            func_name = node[1]
-            self.env[func_name] = node
-        elif node[0] == 'function_call':
-            func_name = node[1]
-            func_node = self.env.get(func_name)
-            if func_node:
-                self.execute(func_node)
-            else:
-                print(f"Error: function '{func_name}' not found")
-        elif node[0] == 'exit':  # Handle program completion
-            exit(0)
+
 
     def evaluate(self, condition):
-        return self.env.get(condition, False)  # Simplified evaluation
+        operator, left_operand, right_operand = condition
+        left_value = self.env.get(left_operand)
+        right_value = int(right_operand) if right_operand.isdigit() else right_operand
+
+        if operator == 'no cap':
+            return left_value == right_value
+        elif operator == 'cap':
+            return left_value != right_value
+        return False
