@@ -18,6 +18,7 @@ bruh hello_world.brot
 ```
 
 ---
+flex: print
 
 yap: comment
 
@@ -26,7 +27,7 @@ beta: mutable variable
 sigma: immutable variable
 
 
-Data types
+# Data types
 
 vibe: boolean
 
@@ -41,14 +42,14 @@ squad: array
 facts: dictionary
 
 
-Conditional statements
+# Conditional statements
 
 vibe check: if
 
 bro did not pass: else
 
 
-Loops
+# Loops
 
 bussin': while
 
@@ -59,7 +60,7 @@ hot take: continue
 body count: loop iteration variable name (best practice)
 
 
-Functions
+# Functions
 
 main character: main function
 
@@ -72,14 +73,14 @@ slide back: return
 understood the assignment: program completed successfully / return 0
 
 
-Input/Output
+# Input/Output
 
 flex: print
 
 left on read: user input
 
 
-Operators
+# Operators
 
 drip: +
 
@@ -94,7 +95,7 @@ no cap: ==
 cap: !=
 
 
-Classes
+# Classes
 
 squad goals: class
 
@@ -111,7 +112,7 @@ cook: create an instance
 cooked: deallocate an instance
 
 
-Exceptions
+# Exceptions
 
 yeet: throw
 
