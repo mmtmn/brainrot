@@ -24,7 +24,7 @@ bruh hello_world.brot
 
 - **Print:** `flex`
   ```brainrot
-  flex "Hello World!"
+  flex "This will show up on your terminal"
   ```
 
 ---
@@ -33,7 +33,7 @@ bruh hello_world.brot
 - **Keyword:** `yap`
 - **Example:** 
   ```brainrot
-  yap This is a comment
+  yap This is a comment and will not show up on your terminal
   ```
 
 ---
