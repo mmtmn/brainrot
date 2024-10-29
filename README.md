@@ -1,4 +1,4 @@
-### Brainrot Programming Language Specification
+# Brainrot Programming Language Specification
 
 ⚠️ not finished, but the examples are working on linux ⚠️
 
