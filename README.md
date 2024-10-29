@@ -1,5 +1,7 @@
 ### Brainrot Programming Language Specification
 
+⚠️ not finished, but the examples are working on linux ⚠️
+
 brainrot/
 
 ├── src/
