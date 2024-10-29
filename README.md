@@ -19,6 +19,113 @@ bruh hello_world.brot
 
 ---
 
+yap: comment
+
+beta: mutable variable
+
+sigma: immutable variable
+
+
+Data types
+
+vibe: boolean
+
+stack: integer
+
+sauce: double
+
+quote: string
+
+squad: array
+
+facts: dictionary
+
+
+Conditional statements
+
+vibe check: if
+
+bro did not pass: else
+
+
+Loops
+
+bussin': while
+
+hits different: break
+
+hot take: continue
+
+body count: loop iteration variable name (best practice)
+
+
+Functions
+
+main character: main function
+
+dms: function
+
+slide into dms: function call
+
+slide back: return
+
+understood the assignment: program completed successfully / return 0
+
+
+Input/Output
+
+flex: print
+
+left on read: user input
+
+
+Operators
+
+drip: +
+
+lack: -
+
+combo: *
+
+ratio: /
+
+no cap: ==
+
+cap: !=
+
+
+Classes
+
+squad goals: class
+
+blud: friend class
+
+highkey: public member
+
+lowkey: private member
+
+guarded af: protected member
+
+cook: create an instance
+
+cooked: deallocate an instance
+
+
+Exceptions
+
+yeet: throw
+
+red flag: error
+
+send it: try
+
+caught in 4k: catch
+
+last chance bro: finally
+
+
+---
+
 
 #### **Output**
 
