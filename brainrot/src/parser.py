@@ -12,45 +12,26 @@ class BrainrotParser:
     def parse_statement(self):
         token = self.tokens[self.position]
         
-        if token[1] == 'beta':
+        if token == ('KEYWORD', 'beta'):
             return self.parse_variable_declaration()
-        elif token[1] == 'sigma':
+        elif token == ('KEYWORD', 'sigma'):
             return self.parse_constant_declaration()
-        elif token[1] == 'vibe check':
+        elif token == ('KEYWORD', 'vibe check'):
             return self.parse_if_statement()
-        elif token[1] == 'bussin\'':
+        elif token == ('KEYWORD', 'bussin\''):
             return self.parse_while_loop()
-        elif token[1] == 'flex':
+        elif token == ('KEYWORD', 'flex'):
             return self.parse_flex_statement()
-        elif token[1] == 'dms':
+        elif token == ('KEYWORD', 'dms'):
             return self.parse_function_definition()
-        elif token[1] == 'slide into dms':
+        elif token == ('KEYWORD', 'slide into dms'):
             return self.parse_function_call()
-        elif token[1] == 'understood the assignment':  # Handle program completion
+        elif token == ('KEYWORD', 'understood the assignment'):
             self.position += 1
             return ('exit',)
         else:
             raise SyntaxError(f"Unknown statement: {token}")
-
-            token = self.tokens[self.position]
             
-            if token[1] == 'beta':
-                return self.parse_variable_declaration()
-            elif token[1] == 'sigma':
-                return self.parse_constant_declaration()
-            elif token[1] == 'vibe check':
-                return self.parse_if_statement()
-            elif token[1] == 'bussin\'':
-                return self.parse_while_loop()
-            elif token[1] == 'flex':
-                return self.parse_flex_statement()
-            elif token[1] == 'dms':
-                return self.parse_function_definition()
-            elif token[1] == 'slide into dms':
-                return self.parse_function_call()
-            else:
-                raise SyntaxError(f"Unknown statement: {token}")
-
     def parse_variable_declaration(self):
         self.position += 1  # Skip 'beta'
         var_name = self.tokens[self.position][1]
@@ -81,26 +62,27 @@ class BrainrotParser:
         self.position += 1  # Skip 'vibe check'
         self.position += 1  # Skip '('
         
-        # Parse the condition (e.g., 'age no cap 21')
+        # Parse the condition, e.g., 'brain no cap 160'
         left_operand = self.tokens[self.position][1]
-        self.position += 1  # Move to 'no cap' or 'cap'
+        self.position += 1  # Move to operator (e.g., 'no cap' or 'cap')
         
         operator = self.tokens[self.position][1]
-        self.position += 1  # Move to the right operand
+        self.position += 1  # Move to right operand (e.g., 160)
         
         right_operand = self.tokens[self.position][1]
-        self.position += 2  # Move past ')' to start of body
+        self.position += 2  # Skip past ')' to start of body
 
+        # Build the condition tuple
         condition = (operator, left_operand, right_operand)
 
-        # Parse the body within braces '{...}' for the `if` statement
+        # Parse the body within braces '{...}'
         self.position += 1  # Skip '{'
         if_body = []
         while self.tokens[self.position][1] != '}':
             if_body.append(self.parse_statement())
         self.position += 1  # Skip '}'
 
-        # Check for an optional `else` clause ('bro did not pass')
+        # Check for optional `else` clause (`bro did not pass`)
         else_body = None
         if self.position < len(self.tokens) and self.tokens[self.position][1] == 'bro did not pass':
             self.position += 1  # Skip 'bro did not pass'
@@ -111,7 +93,6 @@ class BrainrotParser:
             self.position += 1  # Skip '}'
 
         return ('if', condition, if_body, else_body)
-
 
 
     def parse_while_loop(self):

@@ -42,8 +42,9 @@ class BrainrotInterpreter:
         left_value = self.env.get(left_operand)
         right_value = int(right_operand) if right_operand.isdigit() else right_operand
 
-        if operator == 'no cap':
+        if operator == 'no cap':  # 'no cap' means '=='
             return left_value == right_value
-        elif operator == 'cap':
+        elif operator == 'cap':  # 'cap' means '!='
             return left_value != right_value
         return False
+
