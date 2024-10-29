@@ -1,29 +1,26 @@
 #!/bin/bash
 
-# Helper function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
+# Set up the 'bruh' command globally
+setup_bruh_command() {
+    # Locate the absolute path to brainrot.py relative to setup_linux.sh
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    BRAINROT_PATH="$SCRIPT_DIR/brainrot/src/brainrot.py"
 
-# Define Brainrot command setup for Linux and MacOS
-setup_bruh_unix() {
-    echo "Setting up 'bruh' on Linux/MacOS..."
-
-    # Check if python3 is installed, install if necessary
-    if ! command_exists python3; then
-        echo "'python3' is not installed. Installing Python 3..."
-        sudo apt update && sudo apt install -y python3 || brew install python3
+    # Verify that brainrot.py exists at the detected path
+    if [ ! -f "$BRAINROT_PATH" ]; then
+        echo "Error: brainrot.py not found at $BRAINROT_PATH"
+        exit 1
     fi
 
-    # Write the 'bruh' command
+    # Create the /usr/local/bin/bruh script
     BRUH_PATH="/usr/local/bin/bruh"
-    echo '#!/bin/bash' > "$BRUH_PATH"
-    echo "python3 \"$(pwd)/src/brainrot.py\" \"\$@\"" >> "$BRUH_PATH"
+    echo '#!/bin/bash' | sudo tee "$BRUH_PATH" > /dev/null
+    echo "python3 \"$BRAINROT_PATH\" \"\$@\"" | sudo tee -a "$BRUH_PATH" > /dev/null
 
-    # Make it executable
-    chmod +x "$BRUH_PATH"
-    echo "'bruh' command set up successfully! Use 'bruh <filename>' to run Brainrot scripts."
+    # Make the 'bruh' script executable
+    sudo chmod +x "$BRUH_PATH"
+    echo "'bruh' command set up successfully! You can now use 'bruh <filename>' to run Brainrot scripts."
 }
 
-# Run setup for Unix-based systems
-setup_bruh_unix
+# Run the setup function
+setup_bruh_command
