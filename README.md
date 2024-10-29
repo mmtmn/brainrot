@@ -1,6 +1,6 @@
 # Brainrot Programming Language Specification
 
-⚠️ not finished, but the examples are working on linux ⚠️
+⚠️ not finished, but the examples are working in linux ⚠️
 
 ---
 
