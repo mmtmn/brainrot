@@ -15,16 +15,19 @@ class BrainrotLexer:
         self.tokenize()
 
     def tokenize(self):
-        words = re.split(r'(\s+|[{}()])', self.code)
+        # Regular expression pattern for matching tokens
+        pattern = r'(\b(?:' + '|'.join(re.escape(kw) for kw in self.keywords) + r')\b|"[^"]*"|\S+)'
+        words = re.findall(pattern, self.code)
+
         for word in words:
             word = word.strip()
             if word in self.keywords:
                 self.tokens.append(('KEYWORD', word))
+            elif word.startswith('"') and word.endswith('"'):  # Entire string within quotes
+                self.tokens.append(('STRING', word[1:-1]))  # Remove surrounding quotes
             elif re.match(r'^\d+(\.\d+)?$', word):  # Integer or double
                 self.tokens.append(('NUMBER', float(word) if '.' in word else int(word)))
-            elif word.startswith('"') and word.endswith('"'):  # String
-                self.tokens.append(('STRING', word[1:-1]))
-            elif word:
+            else:
                 self.tokens.append(('IDENTIFIER', word))
 
     def get_tokens(self):
