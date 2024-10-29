@@ -1,23 +1,41 @@
 ### Brainrot Programming Language Specification
 
 brainrot/
+
 ├── src/
+
 │   ├── __init__.py             # Initializes the src package
+
 │   ├── lexer.py                # Lexer for tokenizing Brainrot code
+
 │   ├── parser.py               # Parser for creating AST from tokens
+
 │   ├── interpreter.py          # Interpreter to execute Brainrot AST
+
 │   └── brainrot.py             # Main entry point to run Brainrot programs
+
 ├── examples/
+
 │   ├── hello_world.brot        # Sample Brainrot program (Hello World)
+
 │   └── conditional_example.brot # Sample Brainrot program (Conditionals)
+
 ├── tests/
+
 │   ├── __init__.py             # Initializes the tests package
+
 │   ├── test_lexer.py           # Unit tests for lexer
+
 │   ├── test_parser.py          # Unit tests for parser
+
 │   └── test_interpreter.py     # Unit tests for interpreter
+
 ├── README.md                   # Project documentation
+
 ├── LICENSE                     # Project license
+
 └── .gitignore                  # Git ignore file
+
 
 
 ---
