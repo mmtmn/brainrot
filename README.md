@@ -39,14 +39,20 @@ brainrot/
 
 
 ---
+
 ### Linux set up
 
 sudo ./setup_linux
+
 ---
-### Run an example
+
+#### **Run an example**
+
+```brainrot
 git clone https://github.com/mmtmn/brainrot
 cd brainrot; cd brainrot; cd examples
 bruh hello_world.brot
+```
 
 ---
 
