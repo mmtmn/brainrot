@@ -19,6 +19,16 @@ bruh hello_world.brot
 
 ---
 
+
+#### **Output**
+
+- **Print:** `flex`
+  ```brainrot
+  flex "Hello World!"
+  ```
+
+---
+
 #### **Comment Syntax**
 - **Keyword:** `yap`
 - **Example:** 
